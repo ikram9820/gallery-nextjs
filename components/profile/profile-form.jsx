@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 
-import classes from './profile-form.module.css';
 
 function ProfileForm(props) {
   const oldPasswordRef = useRef();
@@ -21,16 +20,16 @@ function ProfileForm(props) {
   }
 
   return (
-    <form className={classes.form} onSubmit={submitHandler}>
-      <div className={classes.control}>
+    <form className="{form}" onSubmit={submitHandler}>
+      <div className="{control}">
         <label htmlFor='new-password'>New Password</label>
         <input type='password' id='new-password' ref={newPasswordRef} />
       </div>
-      <div className={classes.control}>
+      <div className="{control}">
         <label htmlFor='old-password'>Old Password</label>
         <input type='password' id='old-password' ref={oldPasswordRef} />
       </div>
-      <div className={classes.action}>
+      <div className="{action}">
         <button>Change Password</button>
       </div>
     </form>

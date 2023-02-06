@@ -1,6 +1,6 @@
-import { getSession } from 'next-auth/client';
+import { getSession } from "next-auth/client";
 
-import UserProfile from '../components/profile/user-profile';
+import UserProfile from "@/components/profile/user-profile";
 
 function ProfilePage() {
   return <UserProfile />;
@@ -12,7 +12,7 @@ export async function getServerSideProps(context) {
   if (!session) {
     return {
       redirect: {
-        destination: '/auth',
+        destination: "/auth",
         permanent: false,
       },
     };

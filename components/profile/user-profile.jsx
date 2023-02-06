@@ -1,5 +1,12 @@
+import ImagesGrid from '../images-grid/images-grid';
 import ProfileForm from './profile-form';
-import classes from './user-profile.module.css';
+
+const images = [
+  "/images/image1.jpg",
+  "/images/image3.jpg",
+  "/images/image4.jpg",
+  "/images/image6.jpg",
+];
 
 function UserProfile() {
   // const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +22,7 @@ function UserProfile() {
   // }, []);
 
   // if (isLoading) {
-  //   return <p className={classes.profile}>Loading...</p>;
+  //   return <p className={profile}>Loading...</p>;
   // }
 
   async function changePasswordHandler(passwordData) {
@@ -33,9 +40,10 @@ function UserProfile() {
   }
 
   return (
-    <section className={classes.profile}>
+    <section className="flex flex-col">
       <h1>Your User Profile</h1>
       <ProfileForm onChangePassword={changePasswordHandler} />
+      <ImagesGrid images={images}/>
     </section>
   );
 }

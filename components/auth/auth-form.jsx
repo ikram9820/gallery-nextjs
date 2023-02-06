@@ -1,22 +1,20 @@
-import { useState, useRef } from 'react';
-import { signIn } from 'next-auth/client';
-import { useRouter } from 'next/router';
-
-import classes from './auth-form.module.css';
+import { useState, useRef } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 async function createUser(email, password) {
-  const response = await fetch('/api/auth/signup', {
-    method: 'POST',
+  const response = await fetch("/api/auth/signup", {
+    method: "POST",
     body: JSON.stringify({ email, password }),
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.message || 'Something went wrong!');
+    throw new Error(data.message || "Something went wrong!");
   }
 
   return data;
@@ -42,7 +40,7 @@ function AuthForm() {
     // optional: Add validation
 
     if (isLogin) {
-      const result = await signIn('credentials', {
+      const result = await signIn("credentials", {
         redirect: false,
         email: enteredEmail,
         password: enteredPassword,
@@ -50,7 +48,7 @@ function AuthForm() {
 
       if (!result.error) {
         // set some auth state
-        router.replace('/profile');
+        router.replace("/profile");
       }
     } else {
       try {
@@ -63,30 +61,43 @@ function AuthForm() {
   }
 
   return (
-    <section className={classes.auth}>
-      <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
+    <section className="container mx-auto p-6 max-w-3xl bg-white rounded-lg shadow-md">
+      <h1>{isLogin ? "Login" : "Sign Up"}</h1>
       <form onSubmit={submitHandler}>
-        <div className={classes.control}>
-          <label htmlFor='email'>Your Email</label>
-          <input type='email' id='email' required ref={emailInputRef} />
-        </div>
-        <div className={classes.control}>
-          <label htmlFor='password'>Your Password</label>
+        <div className="mb-4">
+          <label className="block font-bold mb-2" htmlFor="email">
+            Your Email
+          </label>
           <input
-            type='password'
-            id='password'
+            type="email"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="email"
+            required
+            ref={emailInputRef}
+          />
+        </div>
+        <div className="mb-6">
+          <label className="block font-bold mb-2" htmlFor="password">
+            Your Password
+          </label>
+          <input
+            type="password"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="password"
             required
             ref={passwordInputRef}
           />
         </div>
-        <div className={classes.actions}>
-          <button>{isLogin ? 'Login' : 'Create Account'}</button>
+        <div className="flex items-center justify-between">
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            {isLogin ? "Login" : "Create Account"}
+          </button>
           <button
-            type='button'
-            className={classes.toggle}
+            type="button"
+            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
             onClick={switchAuthModeHandler}
           >
-            {isLogin ? 'Create new account' : 'Login with existing account'}
+            {isLogin ? "Create new account" : "Login with existing account"}
           </button>
         </div>
       </form>
